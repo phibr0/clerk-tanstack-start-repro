@@ -1,8 +1,8 @@
 diff --git a/dist/server/middlewareHandler.js b/dist/server/middlewareHandler.js
-index 006458cb010d5ed9f31f03a17acc2db3aa093462..95625ba383e7e753fa4ebf92c6030b95dca35983 100644
+index 006458cb010d5ed9f31f03a17acc2db3aa093462..73cebbe6412c56b5d03a264514eeb7dbfac665eb 100644
 --- a/dist/server/middlewareHandler.js
 +++ b/dist/server/middlewareHandler.js
-@@ -9,9 +9,15 @@ function createClerkHandler(eventHandler, clerkOptions = {}) {
+@@ -9,11 +9,16 @@ function createClerkHandler(eventHandler, clerkOptions = {}) {
        try {
          const loadedOptions = loadOptions(request, clerkOptions);
          const requestState = await authenticateRequest(request, loadedOptions);
@@ -18,5 +18,7 @@ index 006458cb010d5ed9f31f03a17acc2db3aa093462..95625ba383e7e753fa4ebf92c6030b95
 +            ...clerkInitialState,
 +          },
          });
-         await router.load();
+-        await router.load();
        } catch (error) {
+         if (error instanceof Response) {
+           return error;
