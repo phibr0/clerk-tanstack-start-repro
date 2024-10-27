@@ -1,0 +1,22 @@
+diff --git a/dist/server/middlewareHandler.js b/dist/server/middlewareHandler.js
+index 006458cb010d5ed9f31f03a17acc2db3aa093462..95625ba383e7e753fa4ebf92c6030b95dca35983 100644
+--- a/dist/server/middlewareHandler.js
++++ b/dist/server/middlewareHandler.js
+@@ -9,9 +9,15 @@ function createClerkHandler(eventHandler, clerkOptions = {}) {
+       try {
+         const loadedOptions = loadOptions(request, clerkOptions);
+         const requestState = await authenticateRequest(request, loadedOptions);
+-        const clerkInitialState = getResponseClerkState(requestState, loadedOptions);
++        const clerkInitialState = getResponseClerkState(
++          requestState,
++          loadedOptions
++        );
+         router.update({
+-          context: clerkInitialState
++          context: {
++            ...router.options.context,
++            ...clerkInitialState,
++          },
+         });
+         await router.load();
+       } catch (error) {
